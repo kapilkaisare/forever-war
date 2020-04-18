@@ -7,6 +7,8 @@ const ANCHORX = 0.5
 const ANCHORY = 0.5
 const SCALEX = 0.5
 const SCALEY = 0.5
+const MARGIN = 64
+
 
 const CONSTANTS = {
     DEFAULT_WIDTH,
@@ -19,6 +21,9 @@ const CONSTANTS = {
         ANCHORY,
         SCALEX,
         SCALEY
+    },
+    DEFAULT_FLEET_ATTR: {
+        MARGIN
     }
 }
 

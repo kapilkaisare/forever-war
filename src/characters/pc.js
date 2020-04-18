@@ -1,10 +1,14 @@
 import { Ship } from './ship'
-import { SPACESHIPS } from '../assets'
 
 class PC extends Ship {
-    constructor() {
-        super()
-        this.assetUrl = SPACESHIPS.PC
+    constructor(asset, initialConfig) {
+        super(asset, initialConfig)
+    }
+
+    joinGame(game, startingPosition) {
+        this.joinedGame = game
+        this.sprite.position.set(startingPosition.X, startingPosition.Y)
+        this.joinedGame.application.stage.addChild(this.sprite)
     }
 }
 

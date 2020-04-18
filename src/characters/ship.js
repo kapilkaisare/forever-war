@@ -3,9 +3,26 @@ import { CONSTANTS } from '../utils/constants'
 
 class Ship {
 
-    constructor(initialConfig) {
-        this.assetUrl = null
+    constructor(asset, initialConfig) {
+        this.asset = asset
         this.setConfig(initialConfig)
+        this.createSprite()
+    }
+
+    get position() {
+        return this.sprite.position
+    }
+
+    set position(coordinates) {
+        this.sprite.position.set(coordinates.X, coordinates.Y)
+    }
+
+    get rotation() {
+        return this.sprite.rotation
+    }
+
+    set rotation(valueRad) {
+        this.sprite.rotation = valueRad
     }
 
     setConfig(initialConfig) {
@@ -20,24 +37,13 @@ class Ship {
         this.config.velocityY = this.config.velocityY ? this.config.velocityY : 0
     }
 
-    joinGame(game, startingPosition) {
-        this.joinedGame = game
-        this.joinedGame.application.loader.add(this.assetUrl).load(() => {
-            this.joinedGame.application.stage.addChild(this.createSprite(startingPosition))
-        })
-    }
-
-    createSprite(startingPosition) {
-        this.sprite = new Sprite(
-            this.joinedGame.application.loader.resources[this.assetUrl].texture
-        )
+    createSprite() {
+        this.sprite = new Sprite(this.asset.texture)
         this.sprite.anchor.set(this.config.anchorX, this.config.anchorY)
         this.sprite.scale.set(this.config.scaleX, this.config.scaleY)
         this.sprite.rotation = this.config.rotation
         this.sprite.velocityX = this.config.velocityX
         this.sprite.velocityY = this.config.velocityY
-        this.sprite.position.set(startingPosition.X, startingPosition.Y)
-        return this.sprite
     }
 
 }

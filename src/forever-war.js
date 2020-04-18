@@ -1,6 +1,7 @@
 import { Application } from 'pixi.js'
 import { CONSTANTS } from './utils'
 import { Characters } from './characters'
+import { SPACESHIPS } from './assets'
 
 const PC_STARTING_POSITION = {
     X: 475,
@@ -18,13 +19,23 @@ class ForeverWar {
         })
     }
 
+    addResources() {
+        return this.application.loader.add([
+            SPACESHIPS.PC,
+            SPACESHIPS.NPC1
+        ])
+    }
+
     addPC() {
-        const PC= new Characters.PC()
+        const PC= new Characters.PC(this.application.loader.resources[SPACESHIPS.PC])
         PC.joinGame(this, PC_STARTING_POSITION)
     }
 
     addNPCs() {
-
+        const fleet = new Characters.Fleet([
+            this.application.loader.resources[SPACESHIPS.NPC1]
+        ], 1, 5)
+        fleet.joinGame(this)
     }
 
     addAssets() {
@@ -45,9 +56,11 @@ class ForeverWar {
     }
 
     start() {
-        this.addAssets()
-        this.render()
-        this.run()
+        this.addResources().load(() => {
+            this.addAssets()
+            this.render()
+            this.run()
+        })
     }
 }
 
