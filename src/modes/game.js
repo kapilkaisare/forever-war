@@ -60,8 +60,9 @@ class GameMode extends Mode {
     addNPCs() {
         const fleet = new Characters.Fleet([
             this.application.loader.resources[SPACESHIPS.NPC1]
-        ], 1, 5)
+        ], 1, 10)
         fleet.joinGame(this)
+        this.gameObjects.set('Fleet', fleet)
     }
 
     addAssets() {
@@ -75,6 +76,7 @@ class GameMode extends Mode {
 
     loop(delta) {
         this.gameObjects.get('PC').move()
+        this.gameObjects.get('Fleet').move()
     }
 
     run() {

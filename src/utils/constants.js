@@ -21,7 +21,8 @@ const KEYS = {
     LEFT: 'ArrowLeft'
 }
 
-const PC_SPEED = 1
+const PC_SPEED = 5
+const NPC_SPEED = 1
 
 const CONSTANTS = {
     DEFAULT_WIDTH,
@@ -40,7 +41,8 @@ const CONSTANTS = {
     DEFAULT_FLEET_ATTR: {
         MARGIN
     },
-    PC_SPEED
+    PC_SPEED,
+    NPC_SPEED
 }
 
 export { CONSTANTS }

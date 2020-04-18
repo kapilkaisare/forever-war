@@ -10,6 +10,7 @@ class Fleet {
         this.phalanx = new Container()
         this.ships = []
         this.build(startingCount)
+        this.velocityX = CONSTANTS.NPC_SPEED
     }
 
     build(startingCount) {
@@ -39,6 +40,20 @@ class Fleet {
     joinGame(game) {
         this.joinedGame = game
         this.joinedGame.application.stage.addChild(this.phalanx)
+    }
+
+    move() {
+        let newPosition = this.phalanx.position.x + this.velocityX
+        if (
+            (newPosition + this.phalanx.width) < (this.joinedGame.width - CONSTANTS.DEFAULT_FLEET_ATTR.MARGIN) &&
+            newPosition > 0
+        ) {
+            this.phalanx.position.x = newPosition
+        } else {
+            this.velocityX = this.velocityX * -1
+            newPosition = this.phalanx.position.x + this.velocityX
+            this.phalanx.position.x = newPosition
+        }
     }
 }
 
