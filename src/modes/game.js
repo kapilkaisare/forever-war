@@ -15,16 +15,11 @@ class GameMode extends Mode {
 
     constructor(width, height, root) {
         super()
-        width = width ? width : CONSTANTS.DEFAULT_WIDTH
-        height = height ? height : CONSTANTS.DEFAULT_HEIGHT
+        this.width = width ? width : CONSTANTS.DEFAULT_WIDTH
+        this.height = height ? height : CONSTANTS.DEFAULT_HEIGHT
         this.root = root ? root : document.body
         this.started = false
         this.gameObjects = new Map()
-
-        this.application = new Application({
-            width,
-            height
-        })
     }
 
     initializeHandlers() {
@@ -89,6 +84,11 @@ class GameMode extends Mode {
     }
 
     start() {
+        this.application = new Application({
+            width: this.width,
+            height: this.height
+        })
+
         this.addResources().load(() => {
             this.addAssets()
             this.initializeHandlers()

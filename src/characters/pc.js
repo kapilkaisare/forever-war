@@ -64,9 +64,29 @@ class PC extends Ship {
         this.movingDown = false
     }
 
+    moveX() {
+        const newPosition = this.sprite.position.x + this.sprite.velocityX
+        if (
+            newPosition < this.joinedGame.width - 32 &&
+            newPosition > 32
+        ) {
+            this.sprite.position.x = newPosition
+        }
+    }
+
+    moveY() {
+        const newPosition = this.sprite.position.y + this.sprite.velocityY
+        if (
+            newPosition < this.joinedGame.height - 32 &&
+            newPosition > 32
+        ) {
+            this.sprite.position.y = newPosition
+        }
+    }
+
     move() {
-        this.sprite.position.x += this.sprite.velocityX
-        this.sprite.position.y += this.sprite.velocityY
+        this.moveX()
+        this.moveY()
     }
 }
 
