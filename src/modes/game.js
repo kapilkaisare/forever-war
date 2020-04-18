@@ -3,11 +3,13 @@ import { Mode } from './mode'
 import { CONSTANTS } from '../utils'
 import { Characters } from '../characters'
 import { SPACESHIPS } from '../assets'
+import { GameKeyboard } from '../controls'
 
 const PC_STARTING_POSITION = {
     X: 475,
     Y: 256
 }
+
 
 class GameMode extends Mode {
 
@@ -17,10 +19,28 @@ class GameMode extends Mode {
         height = height ? height : CONSTANTS.DEFAULT_HEIGHT
         this.root = root ? root : document.body
         this.started = false
+        this.gameObjects = new Map()
+
         this.application = new Application({
             width,
             height
         })
+    }
+
+    initializeHandlers() {
+        const pc = this.gameObjects.get('PC')
+        this.startRightHandler = pc.startRight.bind(pc)
+        this.stopRightHandler = pc.stopRight.bind(pc)
+        this.startLeftHandler = pc.startLeft.bind(pc)
+        this.stopLeftHandler = pc.stopLeft.bind(pc)
+        this.startUpHandler = pc.startUp.bind(pc)
+        this.stopUpHandler = pc.stopUp.bind(pc)
+        this.startDownHandler = pc.startDown.bind(pc)
+        this.stopDownHandler = pc.stopDown.bind(pc)
+    }
+
+    initializeKeyboard() {
+        this.keyboard = new GameKeyboard(this)
     }
 
     onActivate() {
@@ -39,6 +59,7 @@ class GameMode extends Mode {
     addPC() {
         const PC= new Characters.PC(this.application.loader.resources[SPACESHIPS.PC])
         PC.joinGame(this, PC_STARTING_POSITION)
+        this.gameObjects.set('PC', PC)
     }
 
     addNPCs() {
@@ -58,16 +79,20 @@ class GameMode extends Mode {
     }
 
     loop(delta) {
-
+        this.gameObjects.get('PC').move()
     }
 
     run() {
-        this.application.ticker.add(delta => this.loop.bind(this, delta))
+        this.application.ticker.add(delta => {
+            this.loop(delta)
+        })
     }
 
     start() {
         this.addResources().load(() => {
             this.addAssets()
+            this.initializeHandlers()
+            this.initializeKeyboard()
             this.render()
             this.run()
             this.started = true

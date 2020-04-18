@@ -9,10 +9,25 @@ const SCALEX = 0.5
 const SCALEY = 0.5
 const MARGIN = 64
 
+const EVENTS = {
+    KEYUP: 'keyup',
+    KEYDOWN: 'keydown'
+}
+
+const KEYS = {
+    UP: 'ArrowUp',
+    DOWN: 'ArrowDown',
+    RIGHT: 'ArrowRight',
+    LEFT: 'ArrowLeft'
+}
+
+const PC_SPEED = 1
 
 const CONSTANTS = {
     DEFAULT_WIDTH,
     DEFAULT_HEIGHT,
+    EVENTS,
+    KEYS,
     MATH: {
         PI
     },
@@ -24,7 +39,8 @@ const CONSTANTS = {
     },
     DEFAULT_FLEET_ATTR: {
         MARGIN
-    }
+    },
+    PC_SPEED
 }
 
 export { CONSTANTS }
