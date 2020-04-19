@@ -2,7 +2,7 @@ import { Application } from 'pixi.js'
 import { Mode } from './mode'
 import { CONSTANTS } from '../utils'
 import { Characters } from '../characters'
-import { SPACESHIPS } from '../assets'
+import { SPACESHIPS, AMMUNITION } from '../assets'
 import { GameKeyboard } from '../controls'
 
 const PC_STARTING_POSITION = {
@@ -19,7 +19,9 @@ class GameMode extends Mode {
         this.height = height ? height : CONSTANTS.DEFAULT_HEIGHT
         this.root = root ? root : document.body
         this.started = false
+        this.triggerPCFire = false
         this.gameObjects = new Map()
+        this.gameObjects.set('Bullets', [])
     }
 
     initializeHandlers() {
@@ -32,6 +34,8 @@ class GameMode extends Mode {
         this.stopUpHandler = pc.stopUp.bind(pc)
         this.startDownHandler = pc.startDown.bind(pc)
         this.stopDownHandler = pc.stopDown.bind(pc)
+        this.startSpaceHandler = pc.startFire.bind(pc)
+        this.stopSpaceHandler = pc.stopFire.bind(pc)
     }
 
     initializeKeyboard() {
@@ -46,6 +50,7 @@ class GameMode extends Mode {
 
     addResources() {
         return this.application.loader.add([
+            AMMUNITION.Bullet,
             SPACESHIPS.PC,
             SPACESHIPS.NPC1
         ])
@@ -75,8 +80,16 @@ class GameMode extends Mode {
     }
 
     loop(delta) {
-        this.gameObjects.get('PC').move()
-        this.gameObjects.get('Fleet').move()
+        this.gameObjects.get('PC').loop()
+        this.gameObjects.get('Fleet').loop()
+        this.gameObjects.get('Bullets').forEach((bullet) => {
+            bullet.loop(delta)
+        })
+    }
+
+    removeBullet(gameObject) {
+        this.gameObjects.set('Bullets', this.gameObjects.get('Bullets').filter(bullet => bullet !== gameObject))
+        this.application.stage.removeChild(gameObject.sprite)
     }
 
     run() {

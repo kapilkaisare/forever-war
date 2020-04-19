@@ -7,6 +7,8 @@ const ANCHORX = 0.5
 const ANCHORY = 0.5
 const SCALEX = 0.5
 const SCALEY = 0.5
+const AMMO_SCALEX = 1
+const AMMO_SCALEY = 1
 const MARGIN = 64
 
 const EVENTS = {
@@ -18,7 +20,8 @@ const KEYS = {
     UP: 'ArrowUp',
     DOWN: 'ArrowDown',
     RIGHT: 'ArrowRight',
-    LEFT: 'ArrowLeft'
+    LEFT: 'ArrowLeft',
+    SPACE: ' '
 }
 
 const PC_SPEED = 5
@@ -40,6 +43,13 @@ const CONSTANTS = {
     },
     DEFAULT_FLEET_ATTR: {
         MARGIN
+    },
+    DEFAULT_AMMUNITION_ATTR: {
+        ANCHORX,
+        ANCHORY,
+        SCALEX: AMMO_SCALEX,
+        SCALEY: AMMO_SCALEY,
+        DEFAULT_VELOCITY: 2
     },
     PC_SPEED,
     NPC_SPEED

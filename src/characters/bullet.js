@@ -1,15 +1,13 @@
 import { Sprite } from 'pixi.js'
 import { CONSTANTS } from '../utils/constants'
-import { Gun } from './gun'
 
-class Ship {
+class Bullet {
 
     constructor(asset, initialConfig) {
         this.asset = asset
+        this.joinedGame = null;
         this.setConfig(initialConfig)
         this.createSprite()
-        this.joinedGame = null
-        this.gun = new Gun(this)
     }
 
     get position() {
@@ -29,7 +27,7 @@ class Ship {
     }
 
     setConfig(initialConfig) {
-        const defaults = CONSTANTS.DEFAULT_SHIP_ATTR
+        const defaults = CONSTANTS.DEFAULT_AMMUNITION_ATTR
         this.config = { ...initialConfig }
         this.config.anchorX = this.config.anchorX ? this.config.anchorX : defaults.ANCHORX
         this.config.anchorY = this.config.anchorY ? this.config.anchorY : defaults.ANCHORY
@@ -37,7 +35,7 @@ class Ship {
         this.config.scaleY = this.config.scaleY ? this.config.scaleY : defaults.SCALEY
         this.config.rotation = this.config.rotation ? this.config.rotation : 0
         this.config.velocityX = this.config.velocityX ? this.config.velocityX : 0
-        this.config.velocityY = this.config.velocityY ? this.config.velocityY : 0
+        this.config.velocityY = this.config.velocityY ? this.config.velocityY : defaults.DEFAULT_VELOCITY
     }
 
     createSprite() {
@@ -49,13 +47,25 @@ class Ship {
         this.sprite.velocityY = this.config.velocityY
     }
 
-    loop() {
-        if (this.move) {
-            this.move()
+    move() {
+        if (
+            (this.sprite.position.y === this.joinedGame.application.height) ||
+            (this.sprite.position.y === 0)
+        ) {
+            this.joinedGame.removeBullet(this)
+            return;
         }
+        if (this.rotation > 0) {
+            this.sprite.position.y = this.sprite.position.y + this.sprite.velocityY
+        } else {
+            this.sprite.position.y = this.sprite.position.y - this.sprite.velocityY
+        }
+    }
+
+    loop(delta) {
+        this.move()
     }
 
 }
 
-export { Ship }
-
+export { Bullet }

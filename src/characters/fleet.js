@@ -40,6 +40,9 @@ class Fleet {
     joinGame(game) {
         this.joinedGame = game
         this.joinedGame.application.stage.addChild(this.phalanx)
+        this.ships.forEach((ship) => {
+            ship.joinedGame = game
+        })
     }
 
     move() {
@@ -54,6 +57,13 @@ class Fleet {
             newPosition = this.phalanx.position.x + this.velocityX
             this.phalanx.position.x = newPosition
         }
+    }
+
+    loop() {
+        this.move()
+        this.ships.forEach((ship) => {
+            ship.loop()
+        })
     }
 }
 

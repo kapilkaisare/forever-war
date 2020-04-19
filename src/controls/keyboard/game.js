@@ -13,6 +13,7 @@ class GameKeyboard extends Keyboard {
         this.addKey(CONSTANTS.KEYS.UP, this.mode.startUpHandler, this.mode.stopUpHandler)
         this.addKey(CONSTANTS.KEYS.RIGHT, this.mode.startRightHandler, this.mode.stopRightHandler)
         this.addKey(CONSTANTS.KEYS.LEFT, this.mode.startLeftHandler, this.mode.stopLeftHandler)
+        this.addKey(CONSTANTS.KEYS.SPACE, this.mode.startSpaceHandler, this.mode.stopSpaceHandler)
     }
 }
 

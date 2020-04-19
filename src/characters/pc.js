@@ -1,5 +1,6 @@
 import { CONSTANTS } from '../utils'
 import { Ship } from './ship'
+import { Gun } from './gun'
 
 class PC extends Ship {
     constructor(asset, initialConfig) {
@@ -8,6 +9,9 @@ class PC extends Ship {
         this.movingLeft = false
         this.movingUp = false
         this.movingDown = false
+
+        this.triggerFire = false
+        this.gun = new Gun(this)
     }
 
     joinGame(game, startingPosition) {
@@ -64,6 +68,14 @@ class PC extends Ship {
         this.movingDown = false
     }
 
+    startFire() {
+        this.triggerFire = true
+    }
+
+    stopFire() {
+        this.triggerFire = false
+    }
+
     moveX() {
         const newPosition = this.sprite.position.x + this.sprite.velocityX
         if (
@@ -87,6 +99,18 @@ class PC extends Ship {
     move() {
         this.moveX()
         this.moveY()
+    }
+
+    fire() {
+        this.gun.fire()
+    }
+
+    loop(delta) {
+        super.loop(delta)
+        if(this.triggerFire) {
+            this.fire()
+        }
+
     }
 }
 
