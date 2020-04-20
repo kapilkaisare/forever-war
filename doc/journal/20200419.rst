@@ -1,0 +1,29 @@
+Sunday, April 19 2020
+=====================
+
+My first try at the Ludum Dare has come to an unsuccessful end, partly from my realization that I have run into a problem with collision detection, and partly because I have run out of steam. I may not be making a submission, but I intend to continue with the project until I decide it is fit for release.
+
+Below is a list of roughly worded pending tasks I've noticed over the last two days.
+
+1. Extend Pixi's Sprite class, do not encapsulate it.
+2. Increase the game world space so that one can:
+    2.1 Spawn enemies outside the viewscreen and then bring them into play, and
+    2.2 Introduce surprise moves by bringing enemies from unexpected angles, or bringing them back after an exit transition
+3. Distinguish between entities that can move beyond the viewscreen, and those who can't.
+4. Distinguish between entities that can exist beyond the viewscreen, and those who can't.
+5. Implement a mixin architecture that allows for adding multiple behaviors?
+6. Distinguish between the types of ammunition. Some do more damage than other. A enemy bullet should not hurt other enemies.
+7. Make entity velocities variable.
+8. Add a more legible abstraction for direction. Consider aliasing rotation to direction.
+9. Consider making the game a global object, which should reduce the need to pass a reference to the game deep down a hierarchy.
+10. Extend the Pixi's Application class for your game object.
+11. Every entity upon creation should register with the game object.
+12. Create an event system for the Container class, if Pixi does not already have one.
+13. Implement a dying mechanism for your entities.
+14. Distinguish between offensive entities and defensive entities. Offensive entities deal damage upon collision, while defensive entities take damage upon collision. Defensive entities have health, while offensive entities do not.
+15. Implement collision detection.
+16. Use better artwork, preferably tilesets.
+17. Add sound effects.
+18. Add a menu mode.
+19. Add a title screen.
+20. Add a wave generator.
